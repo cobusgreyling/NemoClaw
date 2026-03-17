@@ -1,0 +1,25 @@
+# Network policy preset: AWS services
+
+preset:
+  name: aws
+  description: "AWS S3, SQS, DynamoDB, Lambda, and STS access"
+
+network_policies:
+  aws_services:
+    name: aws_services
+    endpoints:
+      - host: "*.amazonaws.com"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }
+      - host: "*.aws.amazon.com"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: GET, path: "/**" }
+          - allow: { method: POST, path: "/**" }

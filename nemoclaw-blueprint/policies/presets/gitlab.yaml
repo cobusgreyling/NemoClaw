@@ -1,0 +1,27 @@
+# Network policy preset: GitLab (SaaS and self-managed)
+
+preset:
+  name: gitlab
+  description: "GitLab API, Container Registry, and CI/CD"
+
+network_policies:
+  gitlab_services:
+    name: gitlab_services
+    endpoints:
+      - host: gitlab.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }
+      - host: registry.gitlab.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: GET, path: "/**" }
+          - allow: { method: POST, path: "/**" }
+    binaries:
+      - { path: /usr/bin/git }

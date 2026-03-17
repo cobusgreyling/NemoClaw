@@ -1,0 +1,20 @@
+# Network policy preset: OpenAI API
+
+preset:
+  name: openai
+  description: "OpenAI GPT API and related services"
+
+network_policies:
+  openai_api:
+    name: openai_api
+    endpoints:
+      - host: api.openai.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: POST, path: "/v1/chat/completions" }
+          - allow: { method: POST, path: "/v1/completions" }
+          - allow: { method: POST, path: "/v1/embeddings" }
+          - allow: { method: GET, path: "/v1/models" }

@@ -1,0 +1,33 @@
+# Network policy preset: Google Cloud Platform services
+
+preset:
+  name: gcp
+  description: "GCP Cloud Storage, Pub/Sub, Cloud Functions, and Container Registry"
+
+network_policies:
+  gcp_services:
+    name: gcp_services
+    endpoints:
+      - host: "*.googleapis.com"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }
+      - host: "*.gcr.io"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: GET, path: "/**" }
+          - allow: { method: POST, path: "/**" }
+      - host: accounts.google.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: GET, path: "/**" }
+          - allow: { method: POST, path: "/**" }

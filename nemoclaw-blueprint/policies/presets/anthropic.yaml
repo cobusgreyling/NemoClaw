@@ -1,0 +1,26 @@
+# Network policy preset: Anthropic Claude API
+
+preset:
+  name: anthropic
+  description: "Anthropic Claude API and related services"
+
+network_policies:
+  anthropic_api:
+    name: anthropic_api
+    endpoints:
+      - host: api.anthropic.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: POST, path: "/v1/messages" }
+          - allow: { method: POST, path: "/v1/complete" }
+          - allow: { method: GET, path: "/v1/models" }
+      - host: statsig.anthropic.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }

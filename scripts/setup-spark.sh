@@ -144,7 +144,7 @@ else
 fi
 
 # Start vLLM if not already running
-VLLM_MODEL="nvidia/nemotron-3-nano-30b-a3b"
+VLLM_MODEL="nvidia/llama-3.3-nemotron-super-49b-v1"
 if curl -s http://localhost:8000/v1/models > /dev/null 2>&1; then
   info "vLLM already running on :8000"
 else

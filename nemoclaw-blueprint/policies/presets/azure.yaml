@@ -1,0 +1,39 @@
+# Network policy preset: Microsoft Azure services
+
+preset:
+  name: azure
+  description: "Azure Blob Storage, Service Bus, App Service, and Entra ID auth"
+
+network_policies:
+  azure_services:
+    name: azure_services
+    endpoints:
+      - host: "*.blob.core.windows.net"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }
+      - host: "*.servicebus.windows.net"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }
+      - host: "*.azurewebsites.net"
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: "*", path: "/**" }
+      - host: login.microsoftonline.com
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+        rules:
+          - allow: { method: GET, path: "/**" }
+          - allow: { method: POST, path: "/**" }

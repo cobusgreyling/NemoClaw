@@ -1,0 +1,33 @@
+# Network policy preset: PostgreSQL databases
+
+preset:
+  name: postgresql
+  description: "PostgreSQL database access (local and cloud-hosted)"
+
+network_policies:
+  postgresql:
+    name: postgresql
+    endpoints:
+      # Local PostgreSQL
+      - host: localhost
+        port: 5432
+        protocol: rest
+        enforcement: enforce
+      # AWS RDS PostgreSQL
+      - host: "*.rds.amazonaws.com"
+        port: 5432
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+      # Azure Database for PostgreSQL
+      - host: "*.postgres.database.azure.com"
+        port: 5432
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
+      # GCP Cloud SQL
+      - host: "*.cloudsql.goog"
+        port: 5432
+        protocol: rest
+        enforcement: enforce
+        tls: terminate
