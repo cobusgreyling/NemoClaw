@@ -1,24 +1,73 @@
-# NVIDIA NemoClaw: OpenClaw Plugin for OpenShell
+# NemoClaw — DGX Spark Edition
+
+**Fork of [NVIDIA/NemoClaw](https://github.com/NVIDIA/NemoClaw) optimised for DGX Spark (GB10 Grace Blackwell, 128 GB unified memory, ARM64).**
 
 <!-- start-badges -->
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue)](https://github.com/NVIDIA/NemoClaw/blob/main/LICENSE)
 [![Security Policy](https://img.shields.io/badge/Security-Report%20a%20Vulnerability-red)](https://github.com/NVIDIA/NemoClaw/blob/main/SECURITY.md)
 [![Project Status](https://img.shields.io/badge/status-alpha-orange)](https://github.com/NVIDIA/NemoClaw/blob/main/docs/about/release-notes.md)
+[![DGX Spark](https://img.shields.io/badge/DGX_Spark-optimised-76b900)](docs/deployment/dgx-spark.md)
 <!-- end-badges -->
 
-NVIDIA NemoClaw is an open source stack that simplifies running [OpenClaw](https://openclaw.ai) always-on assistants safely. It installs the [NVIDIA OpenShell](https://github.com/NVIDIA/OpenShell) runtime, part of [NVIDIA Agent Toolkit](https://docs.nvidia.com/nemo/agent-toolkit/latest), a secure environment for running autonomous agents, with inference routed through [NVIDIA cloud](https://build.nvidia.com).
+NemoClaw is an open source stack that runs [OpenClaw](https://openclaw.ai) agents inside the [NVIDIA OpenShell](https://github.com/NVIDIA/OpenShell) secure runtime (Landlock + seccomp + network namespaces).
 
-> **Alpha software**
-> 
-> NemoClaw is early-stage. Expect rough edges. We are building toward production-ready sandbox orchestration, but the starting point is getting your own environment up and running.
-> Interfaces, APIs, and behavior may change without notice as we iterate on the design.
-> The project is shared to gather feedback and enable early experimentation, but it
-> should not yet be considered production-ready.
-> We welcome issues and discussion from the community while the project evolves.
+This fork changes three things from upstream:
+
+| Change | Upstream | This Fork |
+|--------|----------|-----------|
+| **Default model** | Nemotron 3 Super 120B (~87 GB) | **Nemotron Super 49B v1** (~24 GB) |
+| **DGX Spark support** | Basic `setup-spark.sh` | Full setup, health check, benchmark, ARM64 Dockerfile |
+| **Network policy presets** | 9 presets | **17 presets** (+AWS, GCP, Azure, GitHub, GitLab, PostgreSQL, Anthropic, OpenAI) |
+
+The 49B model requires only 24 GB, leaving over 80 GB of headroom on a single Spark unit for the OS, Docker, OpenShell and concurrent workloads.
+
+> **Alpha software** — based on upstream NemoClaw which is early-stage. Interfaces, APIs and behaviour may change without notice.
 
 ---
 
-## Quick Start
+## DGX Spark Quick Start
+
+```bash
+export NVIDIA_API_KEY=nvapi-...
+sudo bash scripts/setup-dgx-spark.sh
+```
+
+The script auto-detects the GB10 hardware, configures Docker for cgroup v2, selects the right model for available memory and runs the full NemoClaw setup.
+
+**Options:**
+
+```bash
+# Local inference (no cloud calls, runs vLLM on Spark GPU)
+sudo bash scripts/setup-dgx-spark.sh --local-inference
+
+# Use the 120B model instead (fits on single Spark, ~87 GB)
+sudo bash scripts/setup-dgx-spark.sh --model nvidia/nemotron-3-super-120b-a12b
+
+# Dual-stack mode (two Spark units, 256 GB combined)
+sudo bash scripts/setup-dgx-spark.sh --dual-stack
+
+# Dry run (show what would happen)
+sudo bash scripts/setup-dgx-spark.sh --dry-run
+```
+
+**After setup:**
+
+```bash
+# Validate everything is running
+bash scripts/spark-health.sh
+
+# Benchmark local vs cloud inference
+bash scripts/spark-benchmark.sh
+
+# Connect to the agent
+nemoclaw my-assistant connect
+```
+
+Full deployment guide: [docs/deployment/dgx-spark.md](docs/deployment/dgx-spark.md)
+
+---
+
+## Standard Quick Start
 
 <!-- start-quickstart-guide -->
 
@@ -53,7 +102,7 @@ When the install completes, a summary confirms the running environment:
 ```
 ──────────────────────────────────────────────────
 Sandbox      my-assistant (Landlock + seccomp + netns)
-Model        nvidia/nemotron-3-super-120b-a12b (NVIDIA Cloud API)
+Model        nvidia/llama-3.3-nemotron-super-49b-v1 (NVIDIA Cloud API)
 ──────────────────────────────────────────────────
 Run:         nemoclaw my-assistant connect
 Status:      nemoclaw my-assistant status
