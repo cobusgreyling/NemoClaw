@@ -136,7 +136,7 @@ fi
 
 # 4b. Inference route — default to nvidia-nim
 info "Setting inference route to nvidia-nim / Nemotron 3 Super..."
-openshell inference set --no-verify --provider nvidia-nim --model nvidia/nemotron-3-super-120b-a12b > /dev/null 2>&1
+openshell inference set --no-verify --provider nvidia-nim --model nvidia/llama-3.3-nemotron-super-49b-v1 > /dev/null 2>&1
 
 # 5. Build and create sandbox
 info "Deleting old nemoclaw sandbox (if any)..."

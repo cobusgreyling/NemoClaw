@@ -334,7 +334,7 @@ async function setupNim(sandboxName, gpu) {
 
   if (provider === "nvidia-nim") {
     await ensureApiKey();
-    model = model || "nvidia/nemotron-3-super-120b-a12b";
+    model = model || "nvidia/llama-3.3-nemotron-super-49b-v1";
     console.log(`  Using NVIDIA Cloud API with model: ${model}`);
   }
 

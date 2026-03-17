@@ -209,20 +209,20 @@ export default function register(api: OpenClawPluginApi): void {
     models: {
       chat: [
         {
+          id: "nvidia/llama-3.3-nemotron-super-49b-v1",
+          label: "Nemotron Super 49B v1 (default)",
+          contextWindow: 131072,
+          maxOutput: 4096,
+        },
+        {
           id: "nvidia/nemotron-3-super-120b-a12b",
-          label: "Nemotron 3 Super 120B (March 2026)",
+          label: "Nemotron 3 Super 120B",
           contextWindow: 131072,
           maxOutput: 8192,
         },
         {
           id: "nvidia/llama-3.1-nemotron-ultra-253b-v1",
           label: "Nemotron Ultra 253B",
-          contextWindow: 131072,
-          maxOutput: 4096,
-        },
-        {
-          id: "nvidia/llama-3.3-nemotron-super-49b-v1.5",
-          label: "Nemotron Super 49B v1.5",
           contextWindow: 131072,
           maxOutput: 4096,
         },
@@ -245,7 +245,7 @@ export default function register(api: OpenClawPluginApi): void {
   });
 
   const bannerEndpoint = onboardCfg?.endpointType ?? "build.nvidia.com";
-  const bannerModel = onboardCfg?.model ?? "nvidia/nemotron-3-super-120b-a12b";
+  const bannerModel = onboardCfg?.model ?? "nvidia/llama-3.3-nemotron-super-49b-v1";
 
   api.logger.info("");
   api.logger.info("  ┌─────────────────────────────────────────────────────┐");
