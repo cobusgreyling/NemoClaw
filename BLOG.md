@@ -8,11 +8,15 @@ The technology is replicable.
 
 The ecosystem play is not.
 
+![NVIDIA NemoClaw](images/hero.png)
+
 ## The Setup
 
 On 16 March 2026, Jensen Huang stood on stage at GTC in San Jose and said this about OpenClaw:
 
 > Mac and Windows are the operating systems for the personal computer. OpenClaw is the operating system for personal AI.
+
+![Announcing NVIDIA NemoClaw Reference OpenClaw](images/setup.png)
 
 In the same keynote, NVIDIA announced **NemoClaw**.
 
@@ -36,7 +40,11 @@ That simplicity tells you something about where the real value lives... and it i
 
 ## What NemoClaw actually is
 
+![NVIDIA NemoClaw - Deploy more secure, always-on AI assistants](images/architecture.png)
+
 NemoClaw is a plugin with four layers.
+
+![NemoClaw four layers](images/fork-diagram.png)
 
 You install it with one command.
 
@@ -79,6 +87,8 @@ This is genuinely good architecture.
 But none of it is new, as such.
 
 ## The timeline is almost too perfect
+
+![Inference Inflection Arrives - Star History](images/timeline.png)
 
 Follow the chronology.
 
@@ -126,6 +136,8 @@ Classic platform capture playbook.
 
 ## Could it be replicated?
 
+![NVIDIA Nemotron 3 Super - Best Open Model for OpenClaw](images/replicated.png)
+
 The technology, absolutely yes.
 
 Competitors already exist and some of them launched weeks before NemoClaw.
@@ -145,6 +157,8 @@ The 49B model needs only 24GB VRAM vs 40GB for the 120B, making it runnable on c
 The code is not the moat.
 
 ## The real moat is ecosystem
+
+![Announcing NVIDIA NemoClaw for OpenClaw](images/ecosystem.png)
 
 ### And critical mass
 
