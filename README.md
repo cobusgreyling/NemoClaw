@@ -1,3 +1,5 @@
+![NVIDIA DGX Spark](images/dgx-spark.png)
+
 # NemoClaw — DGX Spark Edition
 
 **Fork of [NVIDIA/NemoClaw](https://github.com/NVIDIA/NemoClaw) optimised for DGX Spark (GB10 Grace Blackwell, 128 GB unified memory, ARM64).**
